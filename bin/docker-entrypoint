@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+# Remove stale PID file if the server didn't shut down cleanly
+rm -f /rails/tmp/pids/server.pid
+
+# Wait for PostgreSQL to be ready
+echo "Waiting for PostgreSQL..."
+until pg_isready -h "$DB_HOST" -U "$DB_USERNAME" -q; do
+  sleep 1
+done
+echo "PostgreSQL is ready."
+
+# Create DB if needed, run migrations
+bin/rails db:prepare
+
+# Seed if events table is empty
+if bin/rails runner "exit(Event.count > 0 ? 1 : 0)" 2>/dev/null; then
+  echo "Seeding database..."
+  bin/rails db:seed
+fi
+
+exec "$@"

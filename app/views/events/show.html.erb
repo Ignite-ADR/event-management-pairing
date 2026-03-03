@@ -1,0 +1,16 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <%= link_to "← Back to Events", events_path, class: "text-blue-600 hover:text-blue-800 mb-4 inline-block" %>
+
+  <div class="bg-white rounded-lg shadow p-8 mt-4">
+    <h1 class="text-3xl font-bold mb-4"><%= @event.title %></h1>
+
+    <div class="flex items-center gap-4 text-gray-500 mb-6">
+      <span><%= @event.date.strftime("%B %d, %Y at %I:%M %p") %></span>
+      <span>Capacity: <%= @event.capacity %></span>
+    </div>
+
+    <div class="prose">
+      <p><%= @event.description %></p>
+    </div>
+  </div>
+</div>

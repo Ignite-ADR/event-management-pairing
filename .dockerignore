@@ -1,0 +1,9 @@
+.git
+node_modules
+tmp/*
+log/*
+vendor/bundle
+app/assets/builds/*
+Dockerfile
+docker-compose.yml
+.dockerignore
